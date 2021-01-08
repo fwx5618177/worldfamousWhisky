@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="cache-control" content="public">
+
+    <!--Title-->
+    <title>酒业展览</title>
+
+    <!--CSS bundle -->
+    <link rel="stylesheet" href="/home/css/bootstrap.css" />
+    <link rel="stylesheet" href="/home/css/animate.css" />
+    <link rel="stylesheet" href="/home/css/font-awesome.css" />
+    <link rel="stylesheet" href="/home/css/ion-range-slider.css" />
+    <link rel="stylesheet" href="/home/css/linear-icons.css" />
+    <link rel="stylesheet" href="/home/css/magnific-popup.css" />
+    <link rel="stylesheet" href="/home/css/owl.carousel.css" />
+    <link rel="stylesheet" href="/home/css/theme.css" />
+
+    {{block 'link'}}{{/block}}
+</head>
+
+<body>
+
+    {{block 'main'}}{{/block}}
+
+</body>
+    <!--Scripts -->
+    <script src="/home/js/jquery.min.js"></script>
+    <script src="/home/js/bootstrap.js"></script>
+    <script src="/home/js/include.js"></script>
+    <script src="/home/js/ion.rangeSlider.js"></script>
+    <script src="/home/js/magnific-popup.js"></script>
+    <script src="/home/js/owl.carousel.js"></script>
+    <script src="/home/js/tilt.jquery.js"></script>
+    <script src="/home/js/jquery.easypiechart.js"></script>
+    <script src="/home/js/bigtext.js"></script>
+    <script src="/home/js/main.js"></script>
+    <script>
+    var count = 0;
+    
+    function getSelect (name, id) {
+            var xmlhttp;
+            if(count == 0){
+                count += 1;
+            }else{
+                count -= 1;
+            }
+
+            
+            let url = "/home/ajax";
+            if( window.XMLHttpRequest ){
+                //IE7+
+                xmlhttp = new XMLHttpRequest();
+            }else {
+                //IE5,IE6
+                xmlhttp = new ActiveXObject( "Microsoft.XMLHTTP" );
+            }
+
+            //发送数据；
+            xmlhttp.open( "POST", url, true );
+            // xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            
+            xmlhttp.setRequestHeader("Content-type","application/json");
+            let dataSet = JSON.stringify({
+                name: name,
+                id: id,
+                data: count
+            });
+
+            console.log(dataSet);
+            xmlhttp.send(dataSet);
+	
+	
+            }
+    </script>
+
+    {{block 'script'}}{{/block}}
+
+
+</html>

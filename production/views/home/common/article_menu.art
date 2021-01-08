@@ -1,0 +1,92 @@
+                   <!--Blog menu-->
+
+                    <div class="col-lg-3">
+
+                        <aside>
+
+                            <!--Box search-->
+
+                            <div class="box box-search">
+                                <input type="text" value="" class="form-control" placeholder="Search the blog" />
+                                <button class="btn btn-primary btn-sm">Search</button>
+                            </div>
+
+                            <!--Box categories-->
+
+                            <div class="box box-animated box-categories">
+                                <h5 class="title">Blog categories</h5>
+                                <ul>
+                                    <li><a href="#">Interiors</a></li>
+                                    <li class="active"><a href="#">Design & decorate</a></li>
+                                    <li><a href="#">Entertainment</a></li>
+                                    <li><a href="#">Heating & Cooling</a></li>
+                                    <li><a href="#">Living room</a></li>
+                                    <li><a href="#">Kitchen</a></li>
+                                    <li><a href="#">Small spaces</a></li>
+                                </ul>
+                            </div>
+
+                            <!--Box posts-->
+
+                            <div class="box box-animated box-posts">
+                                <h5 class="title">Popular posts</h5>
+                                <ul>
+                                    <li>
+                                        <a href="article.html">
+                                            <span class="date">
+                                                <span>Sep</span>
+                                                <span>22</span>
+                                            </span>
+                                            <span class="text">How to Keep Your Heating and Cooling Vents Clean</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="article.html">
+                                            <span class="date">
+                                                <span>Aug</span>
+                                                <span>19</span>
+                                            </span>
+                                            <span class="text">How to Keep Your Heating and Cooling Vents Clean</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="article.html">
+                                            <span class="date">
+                                                <span>Jul</span>
+                                                <span>18</span>
+                                            </span>
+                                            <span class="text">Steal these 3 Home Design Trends for Wedding Decorating Ideas</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="article.html">
+                                            <span class="date">
+                                                <span>Jun</span>
+                                                <span>07</span>
+                                            </span>
+                                            <span class="text">Caring for Windows: 5 Tips for People in Glass Houses</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!--Box tags-->
+
+                            <div class="box box-tags">
+                                <h5 class="title">Popular posts</h5>
+                                <ul class="clearfix">
+                                    <li><a href="#" class="btn btn-outline-secondary btn-sm">Furniture</a></li>
+                                    <li><a href="#" class="btn btn-outline-secondary btn-sm">Interior</a></li>
+                                    <li><a href="#" class="btn btn-outline-secondary btn-sm">Living</a></li>
+                                    <li><a href="#" class="btn btn-outline-secondary btn-sm">Space</a></li>
+                                    <li><a href="#" class="btn btn-outline-secondary btn-sm">Modern</a></li>
+                                    <li><a href="#" class="btn btn-outline-secondary btn-sm">House</a></li>
+                                    <li><a href="#" class="btn btn-outline-secondary btn-sm">Guides</a></li>
+                                    <li><a href="#" class="btn btn-outline-secondary btn-sm">How to</a></li>
+                                    <li><a href="#" class="btn btn-outline-secondary btn-sm">Kitchen</a></li>
+                                </ul>
+                            </div>
+
+                        </aside>
+
+                    </div><!--/col-lg-3-->

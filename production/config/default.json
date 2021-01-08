@@ -1,0 +1,10 @@
+{
+    "title": "博客管理系统",
+    "db": {
+        "user": "fwx",
+        "pwd": "fwx5618177",
+        "host": "localhost",
+        "port": "27017",
+        "name": "blog"
+    }
+}

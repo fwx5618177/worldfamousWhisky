@@ -1,0 +1,220 @@
+<script type="text/javascript">
+    $(function () {
+        // Main navigation & mega menu
+        // ----------------------------------------------------------------
+
+        // Global menu variables
+
+        var objSearch = $('.search-wrapper'),
+            objLogin = $('.login-wrapper'),
+            objCart = $('.cart-wrapper'),
+            objMenu = $('.floating-menu'),
+            objMenuLink = $('.floating-menu a'),
+            $search = $('.open-search'),
+            $login = $('.open-login'),
+            
+            $menu = $('.open-menu'),
+            $openDropdown = $('.open-dropdown'),
+            $close = $('.close-menu'),
+            $settingsItem = $('.nav-settings .nav-settings-list li');
+
+        // Open/close login
+
+        $login.on('click', function () {
+            toggleOpen($(this));
+            objLogin.toggleClass('open');
+            closeSearch();
+            closeCart();
+        });
+
+        // Open/close search bar
+
+        $search.on('click', function () {
+            toggleOpen($(this));
+            objSearch.toggleClass('open');
+            objSearch.find('input').focus();
+            closeLogin();
+            closeCart();
+        });
+
+        // Open/close cart
+
+        $cart.on('click', function () {
+            toggleOpen($(this));
+            objCart.toggleClass('open');
+            closeLogin();
+            closeSearch();
+        });
+
+        // Settings language & currency dropdown
+
+        $settingsItem.on('click', function () {
+            var $value = $(this).closest('.nav-settings').find('.nav-settings-value');
+            $value.text($(this).text());
+        });
+
+
+        // Mobile menu open/close
+
+        $menu.on('click', function () {
+            objMenu.addClass('expanded');
+            closeSearch();
+            closeLogin();
+            closeCart();
+        });
+
+        // Floating menu hyperlink
+        if ($('nav').hasClass('navbar-single-page')) {
+            objMenuLink.on('click', function () {
+                objMenu.removeClass('expanded');
+            });
+        }
+
+        // Open dropdown/megamenu
+
+        $openDropdown.on('click', function (e) {
+
+            e.preventDefault();
+
+            var liParent = $(this).parent().parent(),
+                liDropdown = liParent.find('.navbar-dropdown');
+
+            liParent.toggleClass('expanded');
+
+            if (liParent.hasClass('expanded')) {
+                liDropdown.slideDown();
+            }
+            else {
+                liDropdown.slideUp();
+            }
+        });
+
+        // Close menu (mobile)
+
+        $close.on('click', function () {
+            $('nav').find('.expanded').removeClass('expanded');
+            $('nav').find('.navbar-dropdown').slideUp();
+        });
+
+        // Global functions
+
+        function toggleOpen(el) {
+            $(el).toggleClass('open');
+        }
+
+        function closeSearch() {
+            objSearch.removeClass('open');
+            $search.removeClass('open');
+        }
+        function closeLogin() {
+            objLogin.removeClass('open');
+            $login.removeClass('open');
+        }
+        function closeCart() {
+            objCart.removeClass('open');
+            $cart.removeClass('open');
+        }
+
+        // Sticky header
+        // ----------------------------------------------------------------
+
+        var navbarFixed = $('nav.navbar-fixed');
+
+        // When reload page - check if page has offset
+        if ($(document).scrollTop() > 94) {
+            navbarFixed.addClass('navbar-sticked');
+        }
+        // Add sticky menu on scroll
+        $(document).on('bind ready scroll', function () {
+            var docScroll = $(document).scrollTop();
+            if (docScroll >= 10) {
+                navbarFixed.addClass('navbar-sticked');
+            } else {
+                navbarFixed.removeClass('navbar-sticked');
+            }
+        });
+
+                var navHeight = $('nav').height();
+
+        if ($(".owl-slider").hasClass('owl-slider-fullscreen')) {
+            $('.header-content .item').height($(window).height() - navHeight - 50);
+        }
+
+    });
+</script>
+
+        <!-- ======================== Navigation ======================== -->
+
+        <nav>
+
+            <div class="container">
+
+                <!-- ==========  Top navigation ========== -->
+
+                <div class="navigation navigation-top clearfix">
+                    <ul>
+                        <!--add active class for current page-->
+                        <li class="left-side"><a href="/" class="logo-icon"><img src="assets/icons/icon-accessories.svg" alt="Alternate Text" width="150" height="34"/></a></li>
+                        <li><a href="/admin/login" class="open-login"><i class="icon icon-user"></i></a></li>
+                        <li><a href="javascript:void(0);" class="open-search"><i class="icon icon-magnifier"></i></a></li>
+                        
+                    </ul>
+                </div>
+
+                <!-- ==========  Main navigation ========== -->
+
+                <div class="navigation navigation-main">
+
+
+                    <div class="floating-menu">
+                        <!--mobile toggle menu trigger-->
+                        <div class="close-menu-wrapper">
+                            <span class="close-menu"><i class="icon icon-cross"></i></span>
+                        </div>
+                        <ul>
+                            <li>
+                                <a href="/">主页 <span class="open-dropdown"></span></a>
+                            </li>
+                            <li>
+                                <a href="/home/product">产品大全 <span class="open-dropdown"></span></a>
+                            </li>
+                            <li>
+                                <a>产品种类清单 <span class="open-dropdown"><i class="fa fa-angle-down"></i></span></a>
+                                <div class="navbar-dropdown navbar-dropdown-single">
+                                    <div class="navbar-box">
+                                        <div class="box-full">
+                                            <div class="box clearfix">
+                                                <ul>
+                                                    {{each sortsItem}}
+                                                    <li><a href="/home/search?sorts={{$value.sorts}}">{{$value.sorts}}</a></li>
+                                                    {{/each}}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ==========  Search wrapper ========== -->
+            <form action="search" method="post" id="searchItem">
+                <div class="search-wrapper">
+                    <input class="form-control" name="searchItem" placeholder="查询" />
+                    <select name="type" class="form-control">
+                        <option value="title">品牌名</option>
+                        <option value="sorts">种类</option>
+                        <option value="price">价格</option>
+                        <option value="date">日期</option>
+                    
+                    </select>
+                    <button class="btn btn-outline-dark btn-sm">现在开始查询</button>
+                </div>
+            </form>
+
+
+            </div>
+        </nav>

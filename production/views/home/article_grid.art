@@ -1,0 +1,76 @@
+{{extend './common/layout.art'}}
+
+{{block 'main'}}
+    <div class="page-loader">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <div class="wrapper">
+
+        {{include './common/header.art'}}
+
+        <!-- ========================  Blog article ======================== -->
+        
+            
+        <section class="blog pt-0">
+
+        {{include './common/article_navigation.art'}}
+
+            <!-- ========================  Blog post ======================== -->
+
+            <div class="container">
+
+                <div class="row">
+
+                    <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+
+                        <!--Blog post-->
+
+                        <div class="blog-post pt-3 pt-md-4">
+
+                            <!--Main image-->
+
+                            <div class="blog-image-main" style="text-align:center;" >
+                                <img src="{{article.cover}}" alt="{{article.title}}" style="width:auto;"/>
+                            </div>
+
+                            <!--Blog content-->
+
+                            <div class="blog-post-content">
+
+                                {{include './common/article_context_title.art'}}
+
+                                <!--Blog text-->
+
+                                <div class="blog-post-text">
+
+                                    <h4>{{article.title}}</h4>
+                                    <div class="ck-content">{{@article.content}}</div>
+                                </div>
+
+
+
+                            </div> <!--/blog-post-content-->
+
+                        </div><!--blog-post-->
+
+
+
+                    </div><!--col-sm-8-->
+
+                </div> <!--/row-->
+
+            </div><!--/container-->
+
+        </section>
+        
+
+
+
+
+        {{include './common/footer.art'}}
+
+    </div> <!--/wrapper-->
+{{/block}}

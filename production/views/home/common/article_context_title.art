@@ -1,0 +1,30 @@
+                                <!--Title-->
+
+                                <div class="blog-post-title">
+
+                                    <h1 class="h1 blog-title">
+                                        {{article.title}}
+                                    </h1>
+
+                                    <h2 class="blog-subtitle h5">
+                                        {{article.content && article.content.replace(/<[^>]+>/g, '').substr(0, 25) + '...'}}
+                                    </h2>
+
+                                    <!--Info-->
+
+                                    <div class="blog-info blog-info-top">
+                                        <div class="entry">
+                                            <i class="fa fa-user"></i>
+                                            <span>{{article.createAuthor}}</span>
+                                        </div>
+                                        <div class="entry">
+                                            <i class="fa fa-calendar"></i>
+                                            <span>{{dateFormat(article.publishDate, 'yyyy-mm-dd hh:mm:ss')}}</span>
+                                        </div>
+                                        <div class="entry">
+                                            <i class="fa fa-comments"></i>
+                                            <span>{{$commentsCount}} 评论</span>
+                                        </div>
+                                    </div>
+
+                                </div>

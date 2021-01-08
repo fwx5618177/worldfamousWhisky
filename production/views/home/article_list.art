@@ -1,0 +1,117 @@
+{{extend './common/layout.art'}}
+
+{{block 'link'}}
+	
+	<link rel="stylesheet" href="/home/css/content-styles.css" type="text/css">
+{{/block}}
+{{block 'main'}}
+    <div class="page-loader">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <div class="wrapper">
+
+        {{include './common/header.art'}}
+
+
+
+        <!-- ========================  Blog article ======================== -->
+
+        <section class="blog pt-0">
+
+
+            {{include './common/article_navigation.art'}}
+
+            <!--Blog content-->
+
+            <div class="container">
+
+                <div class="row">
+
+                    <div class="col-lg-9">
+
+                        <!--Blog post-->
+
+                        <div class="blog-post">
+
+
+                            <!--Blog content-->
+
+                            <div class="blog-post-content pt-0">
+
+                                <!--Title-->
+
+                                <div class="blog-post-title">
+
+                                    <!--<h1 class="h1 blog-title">
+                                        In Virtual Reality, How Much <br />Body Do You Need?
+                                    </h1>-->
+
+                                    <h2 class="blog-subtitle h5">
+                                        {{article.content.replace(/<[^>]+>/g, '').substr(0, 25) + '...'}}
+                                    </h2>
+
+                                    <hr />
+
+                                    <!--Info-->
+
+                                    <div class="blog-info">
+                                        <div class="entry">
+                                            <i class="fa fa-user"></i>
+                                            <span>{{article.createAuthor}}</span>
+                                        </div>
+                                        <div class="entry">
+                                            <i class="fa fa-calendar"></i>
+                                            <span>{{dateFormat(article.publishDate, 'yyyy-mm-dd hh:mm:ss')}}</span>
+                                        </div>
+                                        <div class="entry">
+                                            <i class="fa fa-comments"></i>
+                                            <span>{{$commentsCount}} 评论</span>
+                                        </div>
+                                    </div>
+
+                                    <hr />
+
+                                </div>
+
+                                <!--Main image-->
+
+                                <div class="blog-image-main" style="text-align:center;">
+                                    <img src="{{article.cover}}" alt="{{article.title}}" style="width:auto;" />
+                                </div>
+
+
+                                <!--Blog text-->
+                               
+                                <div class="blog-post-text">
+                                     <h4>{{article.title}}</h4>
+                                    
+                                    
+                                    
+                                    <div class="ck-content">{{@article.content}}</div>
+                                </div>
+
+
+                            </div> <!--/blog-post-content-->
+
+                        </div><!--blog-post-->
+
+                        
+
+
+                    </div><!--col-sm-8-->
+
+
+                </div> <!--/row-->
+
+            </div><!--/container-->
+
+        </section>
+ 
+
+        {{include './common/footer.art'}}
+
+    </div> <!--/wrapper-->
+{{/block}}

@@ -1,0 +1,12 @@
+            <header>
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">主页</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">列表数据</li>
+                    </ol>
+                    <h2 class="title">产品目录</h2>
+                    <div class="text">
+                        <p>商品名字</p>
+                    </div>
+                </div>
+            </header>

@@ -1,0 +1,214 @@
+{{extend './common/layout.art'}}
+
+{{block 'link'}}
+    <style>
+
+            .pre_img {
+                display: none; 
+                position: absolute; 
+                top: 25%; 
+                left: 72%; 
+                width: auto; 
+                height: auto; 
+                padding: 0px; 
+                border: 1px solid yellow; 
+                background-color: #ffffff;
+                z-index:2;
+                overflow: auto; 
+            }
+
+            .pre_img img {
+                max-width: 400px;  
+                max-height: auto;
+            }
+
+            .pre_img p {
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+    </style>
+{{/block}}
+
+{{block 'main'}}
+    {{include './common/header.art'}}
+    <!-- 主体内容 -->
+    <div class="content">
+        {{include './common/aside.art'}}
+        <div class="main">
+            <!-- 分类标题 -->
+            <div class="title">
+                <h4 style="display: {{button == '修改' ? 'inline' : 'none'}}">{{@article && article.title}}</h4>
+                {{if message}}
+                <p class="tips">{{message}}</p>
+                {{/if message}}
+
+            </div>
+            <!-- /分类标题 -->
+            <form class="form-container" action="{{link}}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>品牌名-标题</label>
+                    <input onchange='getSelectData(this.id, "title-list")' name="title" type="text" class="form-control" placeholder="请输入文章标题" value="{{article && article.title}}" list="title-list" id="title">
+                    <datalist id="title-list"></datalist>
+                </div>
+                <div class="form-group">
+                    <label>发布时间</label>
+                    <input name="author" type="text" class="form-control" readonly value="{{dateFormat(article.publishDate, 'yyyy-mm-dd hh:mm:ss')}}">
+                </div>
+
+                <div class="form-group">
+                    <label>标签类名-分类</label>
+                    <input onchange='getSelectData(this.id, "sorts-list")' name="sorts" type="text" class="form-control" placeholder="输入分类" list="sorts-list" id="sorts" value="{{article && article.sorts}}">
+                    <datalist id="sorts-list"></datalist>
+                </div>
+                <hr />
+                <div class="form-group">
+                    <label>价格</label>
+                    <input 
+                    onchange='getSelectData(this.id, "price-list")' 
+                    name="price" type="text" class="form-control" placeholder="输入价格" list="price-list" id="price" 
+                    value="{{article.price == null ? '0.00' : article.price}}" onkeypress="ss = this.selectionStart" oninput="formatter(this)" onpropertychange="formatter(this)" />
+
+                    <datalist id="price-list"></datalist>
+                </div>
+
+                <hr />
+                <div class="form-group">
+                   <label for="exampleInputFile">条形码</label>
+                   <input name="QRcode" type="file" id="QRfile">
+                   <div class="thumbnail-waper">
+                   {{if article && article.QRfile}}
+                       <img class="img-thumbnail" src="{{article && article.QRfile}}" id="QRview" >
+
+                    {{else}}
+                        <img class="img-thumbnail" id="QRview" width="3px">
+                    {{/if}}
+                   </div>
+                </div>
+
+                <hr />
+
+                <div class="buttons">
+                    <input type="submit" class="btn btn-primary" value="{{button}}" 
+                    onmouseenter="cardAction('.pre_img', 0, 'block')" 
+                    onmouseleave="cardAction('.pre_img', 0, 'none')">
+                </div>
+            </form>
+
+            <div class="pre_img">
+            <p>原图：</p>
+                <img alt="{{article.title}}" src="{{article.QRfile}}" onerror="script:this.src='/uploads/default/icon.jpg'"/>
+            </div>
+       
+            
+        </div>
+    </div>
+    <!-- /主体内容 -->
+{{/block}}
+
+{{block 'script'}}
+    <script src="/admin/lib/ckeditor5/ckeditor.js">
+    </script>
+
+    <script type="text/javascript">
+
+
+        // 选择QR二维码进行上传
+        var QRfile = document.querySelector('#QRfile');
+        var QRview = document.querySelector('#QRview');
+        QRfile.onchange = function () {
+            var QRreader = new FileReader();
+            QRreader.readAsDataURL(this.files[0]);
+            QRreader.onload = function () {
+                // console.log(reader.result);
+                QRview.src = QRreader.result;
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        window.onload = function () {
+            let QRfile = document.getElementById('QRview');
+
+
+
+                QRfile.style.width = "20%";
+                QRfile.style.height = "20%";
+
+
+        }
+    </script>
+    <script type="text/javascript">
+        function getSelectData (id, listid) {
+            var xmlhttp;
+            let sendData = document.getElementById(id).value;
+            let url = "/admin/ajax";
+            if( window.XMLHttpRequest ){
+                //IE7+
+                xmlhttp = new XMLHttpRequest();
+            }else {
+                //IE5,IE6
+                xmlhttp = new ActiveXObject( "Microsoft.XMLHTTP" );
+            }
+
+
+            //发送数据；
+            xmlhttp.open( "POST", url, true );
+            // xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            
+            xmlhttp.setRequestHeader("Content-type","application/json");
+            let da = JSON.stringify({
+                head: id,
+                data: sendData
+            });
+            // console.log('da',da);
+            // console.log(JSON.parse(da).head);
+            xmlhttp.send(da);
+	
+            //发送后，返回数据；
+            xmlhttp.onreadystatechange = function() {
+                if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ){
+                    
+                    let resdata = JSON.parse(xmlhttp.responseText);
+                    let count = document.getElementById(listid).childElementCount;
+                    console.log(count);
+                    if( count != 0){
+                        let idNode = document.getElementById(listid);
+                        let first = idNode.firstElementChild;
+                        while(first) {                       
+                            first.remove();
+                            first = idNode.firstElementChild;
+                        }
+
+                    }
+
+                    for(let i = 0; i < resdata.length; i++) {
+                        let op = document.createElement('option');
+                        op.setAttribute('class', 'listClass');
+                        if (listid === 'title-list') op.setAttribute('value', resdata[i]);
+                        op.setAttribute('value', resdata[i]);
+                        document.getElementById(listid).appendChild(op);
+                    }
+			
+		        }
+	        }
+	
+            }
+    </script>
+
+    <script>
+        function formatter(o) {
+        var arr = o.value.split('.'), nl = arr[0].length;
+        var tmp = arr[0].replace(/(\d{3}(?!,))/g, '$1,').replace(/,$/g, '')
+        var ss = o.selectionStart + tmp.length - arr[0].length;
+        console.log(ss)
+        o.value = tmp + '.' + (arr[1] || '00').substring(0,2);
+        o.selectionStart=o.selectionEnd=ss
+    }
+
+            function cardAction(classId, index, action) {
+            let id = document.querySelectorAll(classId)[index];
+            id.style.display = action;
+        }
+    
+    </script>
+{{/block}}

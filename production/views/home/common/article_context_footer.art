@@ -1,0 +1,27 @@
+                                <!--Blog footer info-->
+
+                                <div class="blog-info blog-info-bottom">
+
+                                    <ul>
+                                        <li class="divider"></li>
+                                        <li>
+                                            <i class="fa fa-folder-open"></i>
+                                            <span>
+                                                <a href="$">Technology</a>,
+                                                <a href="$">Illusion</a>,
+                                                <a href="$">Researchers</a>,
+                                                <a href="$">Scientific</a>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-tag"></i>
+                                            <span>
+                                                <a href="#">Culture</a>,
+                                                <a href="#">Tech</a>,
+                                                <a href="#">Sci-fi</a>,
+                                                <a href="#">Modern living</a>
+                                            </span>
+                                        </li>
+                                    </ul>
+
+                                </div> <!--/blog-info-->

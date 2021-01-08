@@ -1,0 +1,237 @@
+{{extend './common/layout.art'}}
+
+{{block 'main'}}
+    <div class="page-loader">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <div class="wrapper">
+
+    {{include './common/header.art'}}
+
+
+    <div class="page-loader">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <div class="wrapper">
+
+        <div class="header">
+        
+        </div>
+
+        <!-- ========================  Header content ======================== -->
+
+        <section class="header-content">
+
+            <h2 class="d-none">Slider element</h2>
+
+            <div class="container-fluid">
+
+                <div class="owl-slider owl-carousel owl-theme" data-autoplay="true">
+
+
+                    <!--Slide item-->
+
+                {{each sortsArr}}
+                    {{if $value.slip > 0 }}
+                        <div class="item d-flex align-items-center" style="background-image:url(..{{$value.cover}});background-repeat: no-repeat;background-size:auto; ">
+                        <div class="container">
+                            <div class="caption">
+                                <div class="animated" data-start="fadeInUp">
+                                    <div class="promo pt-3">
+                                        <div class="title title-sm p-0">{{$value.title}}</div>
+                                    </div>
+                                </div>
+                                <div class="animated" data-start="fadeInUp">
+                                    <div class="pt-3">
+                                        <a href="article?id={{@$value._id}}" target="_blank" class="btn btn-outline-warning">查看详情</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    {{/if}}
+                {{/each}}
+                    <!--Slide item-->
+
+                </div> <!--/owl-slider-->
+            </div>
+        </section>
+
+
+        <!-- ========================  Popular products  ======================== -->
+
+        <section class="products">
+
+            <!--Header-->
+
+            <header>
+                <div class="container">
+                    <h2 class="title">最受欢迎的产品</h2>
+                    <div class="text">
+                        <p>
+                            选择你想要的酒 <a href="product-grid" class="btn btn-main">查看全部</a>
+                        </p>
+                    </div>
+                </div>
+            </header>
+
+            <!--Content-->
+
+            <div class="container">
+
+                <div class="row">
+
+                    <!--Product item-->
+                    {{each sortsArr}}
+                        {{if $index < 6}}
+                            <div class="col-6 col-lg-4">
+                        
+                        <article>
+                            <div class="info">
+                                <span class="add-favorite">
+                                    <a href="javascript:void(0);" data-title="Add to favorites" data-title-added="Added to favorites list">
+                                        <i class="icon icon-heart"></i>
+                                    </a>
+                                    
+                                </span>
+                                
+                                <span>
+                                    <a href="#id-{{@$value._id}}" class="mfp-open" data-title="Quick wiew" id="{{$value._id}}">
+                                        <i class="icon icon-eye"></i>
+                                    </a>
+                                </span>
+
+                                
+                            </div>
+
+                            <div class="figure-grid">
+                                {{if $value.cover}}
+                                <div class="image">
+                                    <a href="article?id={{@$value._id}}" style="text-align:center;">
+                                        <img src="..{{$value.cover}}" alt="{{$value.title}}" onerror="script:this.src='/uploads/default/icon.jpg'" style="max-height:200px;width:auto;"/>
+                                    </a>
+                                </div>
+                                {{else}}
+
+                                <div class="image">
+                                    <a href="article?id={{@$value._id}}">
+                                        <img  alt="{{$value.title}}" src="/uploads/default/icon.jpg"/>
+                                    </a>
+                                </div>
+                                {{/if}}
+
+                                <div class="text">
+                                    <h2 class="title h4">
+                                        <a href="article?id={{@$value._id}}">{{$value.title}}</a>
+                                    </h2>
+                                    <sup>￥ {{$value.price}}</sup>
+                                    <span class="description clearfix">
+                                    {{$value.content.replace(/<[^>]+>/g, '').substr(0, 5) + '...'}}
+                                    </span>
+
+                                    <p>{{$value.content.replace(/<[^>]+>/g, '').substr(0, 5) + '...'}}</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+
+                            <!-- ========================  Product popup ======================== -->
+
+        <div class="popup-main mfp-hide " id="id-{{@$value._id}}">
+
+            <!--Product popup-->
+
+            <div class="product">
+
+                <!--Popup-title -->
+
+                <div class="popup-title">
+                    <div class="h3 title">
+                        
+                        <small>{{$value.title}}</small>
+                    </div>
+                </div>
+
+                <!--Product gallery-->
+
+                <div class="owl-product-gallery owl-theme owl-carousel">
+                    <img  src="{{$value.QRfile}}" alt="{{$value.title}}" onerror="script:this.src='/uploads/default/icon.jpg'" style="max-width: 640px;" />
+                </div>
+
+                <!--Popup info-->
+
+                <div class="popup-content">
+                    <div class="product-info-wrapper">
+                        <div class="row">
+
+                            <!--Left side-->
+
+                            <div class="col-sm-6">
+                                <div class="info-box">
+                                    <strong>品牌名：</strong>
+                                    <span>{{$value.title}}</span>
+                                </div>
+                                <div class="info-box">
+                                    <strong>种类：</strong>
+                                    <span>{{$value.sorts}}</span>
+                                </div>
+   
+                            </div>
+
+                            
+
+                        </div> <!--/row-->
+                    </div> <!--/product-info-wrapper-->
+                </div> <!--/popup-content-->
+
+                <div class="popup-table">
+                    <div class="popup-cell">
+                        <div class="price">
+                            <span class="h3">￥ {{$value.price}}</span>
+                        </div>
+                    </div>
+                    <div class="popup-cell">
+                        <div class="popup-buttons">
+                            
+                            <a href="article?id={{@$value._id}}"><span class="icon icon-cart"></span> <span class="hidden-xs">页面详情</span></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!--/product-->
+        </div>
+
+                        {{/if}}
+                    {{/each}}
+                    <!--Product item-->
+
+
+
+                </div> <!--/row-->
+
+            </div>
+
+        </section>
+
+  
+
+ 
+ 
+
+
+ {{include './common/insgram.art'}}
+
+
+    {{include './common/footer.art'}}
+
+    </div> <!--/wrapper-->
+{{/block}}
+

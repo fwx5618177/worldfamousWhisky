@@ -1,0 +1,296 @@
+{{extend './common/layout.art'}}
+
+{{block 'link'}}
+    <style>
+        .white_content { 
+            display: none; 
+            position: absolute; 
+            top: 5%; 
+            left: 25%; 
+            width: 55%; 
+            height: 80%; 
+            padding: 0px; 
+            border: 1px solid yellow; 
+            background-color: #ffffff;
+            z-index:2;
+            overflow: auto; 
+        }
+        .pre_img {
+            display: none; 
+            position: absolute; 
+            top: 25%; 
+            left: 72%; 
+            width: auto; 
+            height: auto; 
+            padding: 0px; 
+            border: 1px solid yellow; 
+            background-color: #ffffff;
+            z-index:2;
+            overflow: auto; 
+        }
+
+        .pre_img img {
+            max-width: 400px;  
+            max-height: auto;
+        }
+
+        .pre-content {
+            margin: 0px;
+            position: relative;
+        }
+
+        .card-title {
+            background-image: linear-gradient(#e66465, #9198e5);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            
+        }
+
+        .card-title h3 {
+            width: 90%;
+            display: flex;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: bold;
+            color: #ffffff;
+            margin:15px 0;
+        } 
+
+        .card-title a {
+            width: 5%;
+            margin: 0px;
+
+            
+        }
+        .card-content {
+            width: 80%;
+            margin-left: 10%;
+            margin-right: 10%;
+        }
+
+        .card-title a i {
+            padding-right: 10px;
+            float: right;
+            transform: scale(1.6);
+        }
+
+        .owl-product-gallery {
+            display: flex;
+            justify-content: center;
+        }
+
+        .owl-product-gallery img { 
+            max-width: 400px;  
+            
+            padding-top: 10px;
+        }
+
+        .popup-content {
+            padding: 40px;
+            background-color: white;
+            text-align: left;
+            display: block;
+            font-size: 15px;
+        }
+
+        .popup-table {
+            margin: 0px;
+            display: table;
+            width: 100%;
+            text-align: left;
+            
+        }
+
+        .popup-table .popup-cell:nth-child(1) {
+            padding-left: 18px;
+        }
+        .popup-table .popup-cell {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+
+    </style>
+{{/block}}
+{{block 'main'}}
+    {{include './common/header.art'}}
+    <!-- 主体内容 -->
+    <div class="content">
+        {{include './common/aside.art'}}
+        <div class="main">
+        	<!-- 分类标题 -->
+            <div class="title">
+                <h4>二维码页面管理</h4>
+                {{if message}}
+                <a>{{message}}</a>
+                {{/if}}
+                <span>找到{{articles && articles.total}}篇tag</span>
+               
+                
+            </div>
+            <span>默认标题排序:</span>
+            <a href="/admin/QRedit?sequence=1" class="btn btn-primary new">默认顺序</a>
+            <a href="/admin/QRedit?sequence=2" class="btn btn-primary new">修改时间顺序</a>
+            <a href="/admin/QRedit?sequence=3" class="btn btn-primary new">标签名顺序</a>
+            <a href="/admin/QRedit?sequence=4" class="btn btn-primary new">发布时间顺序</a>
+            <a href="/admin/QRedit?sequence=5" class="btn btn-primary new">作者顺序</a>
+            <a href="/admin/QRedit?sequence=6" class="btn btn-primary new">标题顺序</a>
+            <!-- /分类标题 -->
+            <!-- 内容列表 -->
+            <table class="table table-striped table-bordered table-hover custom-table">
+                <thead>
+                    <tr>
+                        <th>对应文章标题</th>
+                        <th>标签类名</th>
+                        <th>文章发布时间</th>
+                        <th>tag上次修改时间</th>
+                        <th>作者</th>
+                        <th>对应tag修改</th>
+
+                        <th>提前预览</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {{if articles && userInfo.state != 1}}
+                    {{each articles && articles.records}}
+                    <tr>
+                    {{if userInfo.root == 0 && userInfo.role == 'root'}}
+                        <td>{{$value.title}}</td>
+                    {{else}}
+                        <td>您没有权限操作</td>
+                    {{/if}}
+                        
+                        <td>{{@$value.sorts}}</td>
+                        <td>{{$value.publishDate && dateFormat($value.publishDate, 'yyyy-mm-dd hh:mm:ss')}}</td>
+                        <td>{{$value.lastModifyDate == null ? '暂无修改(' : dateFormat($value.lastModifyDate, 'yyyy-mm-dd hh:mm:ss'+'(')}}{{$value.lastAuthor+')'}}</td>
+                        <td>{{@$value.author == null ? '该用户已被删除('+$value.createAuthor+')' : $value.author.username}}</td>
+                        <td>
+                            <a href="/admin/QRedit-edit?id={{@$value._id}}" class="glyphicon glyphicon-pencil" ></a>
+
+                             
+                        </td>
+
+                        
+                        <td><a id="open_card" href = "javascript:void(0)" 
+                        onclick ="cardAction('.white_content', {{$index}}, 'block')" 
+                        class="glyphicon glyphicon-eye-open" 
+                        onmouseenter="cardAction('.pre_img', {{$index}}, 'block')" 
+                        onmouseleave="cardAction('.pre_img', {{$index}}, 'none')"
+                        ></a></td>
+
+                        <div class="pre_img">
+                            <img alt="{{$value.title}}" src="{{$value.QRfile}}" onerror="script:this.src='/uploads/default/icon.jpg'"/>
+                        </div>
+
+                        <div class="white_content"> 
+                            
+                            <div class="pre-content">
+                                <div class="card-title">
+                                    <h3>{{$value.title}}</h3>
+                                    <a id="close_card" href = "javascript:void(0)" 
+                                    onclick = "cardAction('.white_content', {{$index}}, 'none')"><i class="glyphicon glyphicon-remove"></i></a>
+                                </div>
+
+                                <div class="card-content">
+
+                                                            <!--Product gallery-->
+
+                <div class="owl-product-gallery owl-theme owl-carousel">
+                    <img src="{{$value.QRfile}}" alt="{{$value.title}}" onerror="script:this.src='/uploads/default/icon.jpg'"/>
+                </div>
+                
+
+                <hr />
+                <!--Popup info-->
+
+                <div class="popup-content">
+                    <div class="product-info-wrapper">
+                        <div class="row">
+
+                            <!--Left side-->
+
+                            <div class="col-sm-6">
+                                <div class="info-box">
+                                    <strong>品牌名</strong>
+                                    <span>{{$value.title}}</span>
+                                </div>
+                                <div class="info-box">
+                                    <strong>种类</strong>
+                                    <span>{{$value.sorts}}</span>
+                                </div>
+ 
+                            </div>
+
+
+
+                        </div> <!--/row-->
+                    </div> <!--/product-info-wrapper-->
+                </div> <!--/popup-content-->
+
+                <div class="popup-table">
+                    <div class="popup-cell">
+                        <div class="price">
+                            <span class="h3">目前的价格：{{$value.price == null ? '暂未定' : $value.price}}</span>
+                        </div>
+                    </div>
+                    <div class="popup-cell">
+                        <div class="popup-buttons">
+                            <a href="/admin/QRedit-edit?id={{@$value._id}}"><span class="icon icon-eye"></span> <span class="hidden-xs">修改内容</span></a>
+                        </div>
+                    </div>
+                </div>
+                                </div>
+                            </div>                    
+                        </div> 
+                    </tr>
+                   {{/each}}
+
+
+                {{/if}}
+                </tbody>
+            </table>
+            <!-- /内容列表 -->
+            <!-- 分页 -->
+            <ul class="pagination">
+                {{if articles && articles.page > 1}}
+                <li>
+                    <a href="/admin/article?page={{articles.page - 1}}">
+			        <span>&laquo;</span>
+			      </a>
+                </li>
+                {{/if}}
+                {{each articles && articles.display}}
+                <li><a href="/admin/article?page={{$value}}">{{$value}}</a></li>
+                {{/each}}
+
+                {{if  articles && articles.page < articles.pages}}
+                <li>
+                    <a href="/admin/article?page={{articles.page - 0 + 1}}">
+			        <span>&raquo;</span>
+			      </a>
+                </li>
+                {{/if}}
+            </ul>
+            <!-- /分页 -->
+        </div>
+    </div>
+    <!-- /主体内容 -->
+
+
+
+
+{{/block}}
+
+
+{{block 'script'}}
+    <script type="text/javascript">
+        function cardAction(classId, index, action) {
+            let id = document.querySelectorAll(classId)[index];
+            id.style.display = action;
+        }
+
+
+    </script>
+
+{{/block}}

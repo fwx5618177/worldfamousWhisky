@@ -1,0 +1,45 @@
+            <!--Header-->
+
+            <header>
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">主页</a></li>
+                        <li class="breadcrumb-item"><a href="search?sorts={{article.sorts}}">{{article.sorts}}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{article.title}}</li>
+                    </ol>
+                    <h2 class="title">{{article.title}}</h2>
+                </div>
+            </header>
+
+
+            <!--Blog navigation-->
+
+            <div class="blog-navigation">
+
+                <!--Nav prev-->
+                {{if preArticle }}
+                <a class="nav-link prev" href="article?id={{@preArticle._id}}">
+                    <figure>
+                        <div class="image">
+                            <img src="{{preArticle.cover}}" alt="{{preArticle.title}}">
+                        </div>
+                        <figcaption>
+                            <div class="blog-title h6">打开上一个文章</div>
+                        </figcaption>
+                    </figure>
+                </a>
+                {{/if}}
+                <!--Nav next-->
+                {{if postArticle}}
+                <a class="nav-link next" href="article?id={{@postArticle._id}}">
+                    <figure>
+                        <div class="image">
+                            <img src="{{postArticle.cover}}" alt="{{postArticle.title}}">
+                        </div>
+                        <figcaption>
+                            <div class="blog-title h6">下一篇文章</div>
+                        </figcaption>
+                    </figure>
+                </a>
+                {{/if}}
+            </div>

@@ -1,0 +1,39 @@
+<!-- 侧边栏 -->
+<div class="aside fl">
+    <ul class="menu list-unstyled">
+        <li>
+            <a class="item {{currentLink == 'user' ? 'active' : ''}}" href="/admin/user">
+                <span class="glyphicon glyphicon-user"></span>
+                用户管理
+            </a>
+        </li>
+        <li>
+            <a class="item {{currentLink == 'article' ? 'active' : ''}}" href="/admin/article">
+                <span class="glyphicon glyphicon-th-list"></span>
+                文章管理
+            </a>
+        </li>
+        <li>
+            <a class="item {{currentLink == 'QRedit' ? 'active' : ''}}" href="/admin/QRedit">
+                <span class="glyphicon glyphicon-qrcode"></span>
+                二维码页面管理
+            </a>
+        </li>
+        <li>
+            <a class="item" href="/home">
+                <span class="glyphicon glyphicon-home"></span>
+                主页
+            </a>
+        </li>
+        <li>
+            <a class="item" href="/admin/logout">
+                <span class="glyphicon glyphicon-knight"></span>
+                退出
+            </a>
+        </li>
+    </ul>
+    <div class="cprt">
+       <span class="glyphicon glyphicon-grain"></span> Powered by <a href="http://www.moxixii.com" target="_blank">MoXi<span class="glyphicon glyphicon-grain"></span></a>
+    </div>
+</div>
+<!-- 侧边栏 -->

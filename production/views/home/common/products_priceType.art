@@ -1,0 +1,19 @@
+
+
+                                <!--Type-->
+
+                                <div class="filter-box active">
+                                    <div class="title">
+                                        种类
+                                    </div>
+                                    <div class="filter-content">
+
+                                        {{each sortsItem}}
+                                        <span class="checkbox">
+                                            
+                                            <label for="{{$value.id}}"><a class="page-link" href="/home/search?sorts={{$value.sorts}}" style="text-decoration:none;">{{$value.sorts}}</a></label>
+                                        </span>
+                                        {{/each}}
+                                    </div>
+                                </div>
+
