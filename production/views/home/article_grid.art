@@ -57,7 +57,7 @@
                         </div><!--blog-post-->
 
 
-
+                    {{include './common/comment.art'}}
                     </div><!--col-sm-8-->
 
                 </div> <!--/row-->
@@ -73,4 +73,18 @@
         {{include './common/footer.art'}}
 
     </div> <!--/wrapper-->
+{{/block}}
+
+{{block 'script'}}
+    <script type="text/javascript">
+    //alert(location.href.split('?')[1]);
+
+        $(window).on('load', function() {
+            //let currUrl = "sawd";
+            // alert("sad");
+            let currUrl = decodeURIComponent(location.href.split('=')[1]);
+            //alert(currUrl);
+            $('#articleId').val(currUrl);            
+         })
+    </script>
 {{/block}}

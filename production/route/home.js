@@ -10,10 +10,8 @@ home.get('/article', require('./home/article_grid'));
 home.get('/article_grid', require('./home/article_grid'));
 home.get('/article_list', require('./home/article_list'));
 
-
 // 创建评论功能路由
 home.post('/comment', require('./home/comment'));
-home.post('/commentNoUser', require('./home/commentNoUser'));
 
 // home.get('/list', require('./home/listmenu'));
 

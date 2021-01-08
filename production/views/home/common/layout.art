@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/home/css/theme.css" />
 
     {{block 'link'}}{{/block}}
+
 </head>
 
 <body>

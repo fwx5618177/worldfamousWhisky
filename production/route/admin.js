@@ -46,4 +46,8 @@ admin.get('/QRedit', require('./admin/QRedit'));
 admin.get('/QRedit-edit', require('./admin/QRedit-edit'));
 admin.post('/QRedit-edit', require('./admin/QRedit-edit-modify'));
 
+//Comment
+admin.get('/Comment', require('./admin/Comment'));
+admin.post('/Comment', require('./admin/Comment'));
+
 module.exports = admin;

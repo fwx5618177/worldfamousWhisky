@@ -86,7 +86,7 @@ app.use((err, req, res, next) => {
 });
 
 // 监听端口
-app.listen(81, () => {
+app.listen(config.get('webport'), () => {
     // console.log(err);
-    console.log('网站服务器启动成功，请访问localhost:81');
+    console.log(`网站服务器启动成功，请访问localhost: ${config.get('webport')}`);
 });
