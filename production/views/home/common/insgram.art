@@ -7,13 +7,13 @@
             <header>
                 <h2 class="h6 title">
                     <i class="fa fa-instagram fa-3x"></i> <br>
-                    #日中物流
+                    #日本威士忌买卖交流网
                 </h2>
             </header>
 
             <!--Gallery-->
 
-            <div class="container">
+            <!-- <div class="container">
 
                     <div class="gallery clearfix">
                     {{each sortsArr}}
@@ -28,7 +28,7 @@
                     {{/each}}
                     </div> <!--/gallery-->
 
-            </div>
+            </div> -->
 
 
         </section>
