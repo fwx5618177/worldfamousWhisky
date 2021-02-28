@@ -1,7 +1,7 @@
 {
-    "title": "白酒管理系统   ----  开发环境",
+    "title": "白酒管理系统   ----  生产环境",
     "db": {
-        "user": "fwx",        
+        "user": "fwx",
         "pwd": "fwx",
         "host": "localhost",
         "port": "27017",
